@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pastelaria do Zé - O Melhor Pastel da Cidade</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome para Ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Arquivo CSS externo -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <header>
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <i class="fa-solid fa-stroopwafel"></i> Pastelaria do Zé
+            </a>
+            <ul class="nav-links">
+                <li><a href="#home">Início</a></li>
+                <li><a href="#cardapio">Cardápio</a></li>
+                <li><a href="#sobre">Sobre Nós</a></li>
+            </ul>
+
+            <!-- ÁREA DE AÇÕES / AUTH + CARRINHO -->
+            <div class="header-actions">
+                <div id="auth-buttons" class="auth-buttons">
+                    <button class="btn-auth btn-login" onclick="toggleLoginModal()">Login</button>
+                    <button class="btn-auth btn-register" onclick="toggleRegisterModal()">Cadastro</button>
+                </div>
+
+                <div id="user-info" class="user-info" style="display: none;">
+                    <span id="user-greeting">Olá, Usuário</span>
+                    <button class="btn-auth btn-logout" onclick="logoutUser()">Sair</button>
+                </div>
+
+                <button class="cart-btn" onclick="toggleCartModal()">
+                    <i class="fa-solid fa-cart-shopping"></i> Pedido
+                    <span class="cart-count" id="cart-count">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>O Pastel Mais Crocante da Cidade!</h1>
+            <p>Massa caseira, recheio caprichado e frito na hora.</p>
+            <a href="#cardapio" class="btn-cta">Ver Cardápio</a>
+        </div>
+    </section>
+
+    <!-- CARDÁPIO -->
+    <section class="container" id="cardapio">
+        <h2 class="section-title">Nossos Pastéis Salgados</h2>
+        <div class="grid-menu" id="menu-salgados"></div>
+
+        <h2 class="section-title" style="margin-top: 50px;">Pastéis Doces</h2>
+        <div class="grid-menu" id="menu-doces"></div>
+
+        <h2 class="section-title" style="margin-top: 50px;">Bebidas</h2>
+        <div class="grid-menu" id="menu-bebidas"></div>
+    </section>
+
+    <!-- SOBRE NÓS -->
+    <section class="sobre" id="sobre">
+        <div class="sobre-content">
+            <h2 class="section-title">Sobre A Pastelaria do Zé</h2>
+            <p>Há mais de 15 anos servindo a comunidade com ingredientes selecionados, óleo sempre limpo e aquele atendimento caloroso de família. Venha nos visitar ou faça seu pedido online para receber o pastel quentinho na sua casa!</p>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>&copy; 2026 Pastelaria do Zé. Todos os direitos reservados.</p>
+        <p><i class="fa-solid fa-location-dot"></i> Rua dos Pastéis, 123 - Centro | <i class="fa-brands fa-whatsapp"></i> (11) 99999-9999</p>
+    </footer>
+
+    <!-- MODAL DE LOGIN -->
+    <div class="modal" id="login-modal">
+        <div class="modal-content auth-modal">
+            <div class="modal-header">
+                <h3>Entrar na Conta</h3>
+                <span class="close-btn" onclick="toggleLoginModal()">&times;</span>
+            </div>
+            <form onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label>Nome de Usuário:</label>
+                    <input type="text" id="login-username" placeholder="Digite seu usuário" required>
+                </div>
+                <div class="form-group">
+                    <label>Senha:</label>
+                    <input type="password" id="login-password" placeholder="Digite sua senha" required>
+                </div>
+                <button type="submit" class="btn-submit">Entrar</button>
+            </form>
+            <p class="auth-switch">Ainda não tem conta? <a href="#" onclick="switchModal('login', 'register')">Cadastre-se aqui</a></p>
+        </div>
+    </div>
+
+    <!-- MODAL DE CADASTRO -->
+    <div class="modal" id="register-modal">
+        <div class="modal-content auth-modal">
+            <div class="modal-header">
+                <h3>Criar Nova Conta</h3>
+                <span class="close-btn" onclick="toggleRegisterModal()">&times;</span>
+            </div>
+            <form onsubmit="handleRegister(event)">
+                <div class="form-group">
+                    <label>Nome de Usuário:*</label>
+                    <input type="text" id="reg-username" placeholder="Ex: joaosilva" required>
+                </div>
+                <div class="form-group">
+                    <label>Nome Completo:*</label>
+                    <input type="text" id="reg-fullname" placeholder="Ex: João Silva" required>
+                </div>
+                <div class="form-group">
+                    <label>E-mail:*</label>
+                    <input type="email" id="reg-email" placeholder="email@exemplo.com" required>
+                </div>
+                <div class="form-group">
+                    <label>Telefone:*</label>
+                    <input type="tel" id="reg-phone" placeholder="(11) 99999-9999" required>
+                </div>
+                <div class="form-group">
+                    <label>CPF:*</label>
+                    <input type="text" id="reg-cpf" placeholder="000.000.000-00" required>
+                </div>
+                <div class="form-group">
+                    <label>Endereço de Entrega:*</label>
+                    <input type="text" id="reg-address" placeholder="Rua, número, bairro" required>
+                </div>
+                <div class="form-group">
+                    <label>Senha:*</label>
+                    <input type="password" id="reg-password" placeholder="Crie uma senha" required>
+                </div>
+                <button type="submit" class="btn-submit">Cadastrar</button>
+            </form>
+            <p class="auth-switch">Já possui uma conta? <a href="#" onclick="switchModal('register', 'login')">Faça login</a></p>
+        </div>
+    </div>
+
+    <!-- MODAL CARRINHO -->
+    <div class="modal" id="cart-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Seu Pedido</h3>
+                <span class="close-btn" onclick="toggleCartModal()">&times;</span>
+            </div>
+            <div id="cart-items">
+                <!-- Itens adicionados via JS -->
+            </div>
+            <div class="cart-total" id="cart-total">Total: R$ 0,00</div>
+            
+            <label style="display:block; margin-bottom: 5px; font-weight: 600;">Seu Nome:</label>
+            <input type="text" id="client-name" placeholder="Ex: João Silva" style="width: 100%; padding: 8px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px;">
+
+            <label style="display:block; margin-bottom: 5px; font-weight: 600;">Endereço / Observações:</label>
+            <input type="text" id="client-address" placeholder="Ex: Rua A, nº 45 / Sem azeitona" style="width: 100%; padding: 8px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 4px;">
+
+            <button class="btn-whatsapp" onclick="sendOrderToWhatsApp()">
+                <i class="fa-brands fa-whatsapp"></i> Enviar Pedido no WhatsApp
+            </button>
+        </div>
+    </div>
+
+    <!-- SDK do Supabase CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- Arquivo JS externo -->
+    <script src="script.js"></script>
+</body>
+</html>
